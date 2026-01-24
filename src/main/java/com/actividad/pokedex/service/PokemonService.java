@@ -1,9 +1,13 @@
 package com.actividad.pokedex.service;
 
 import com.actividad.pokedex.client.PokeApiClient;
-import com.actividad.pokedex.dto.response.PokeResponse;
+import com.actividad.pokedex.dto.response.ListaPokeResponse;
+import com.actividad.pokedex.dto.response.PokemonResponse;
 import com.actividad.pokedex.model.Pokemon;
 import java.util.ArrayList;
+import java.util.List;
+
+import com.actividad.pokedex.model.PokemonLista;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,15 +20,24 @@ public class PokemonService {
     }
 
     public Pokemon obtenerPokemon(String nombreOId) {
-        PokeResponse respuesta = clientePokeApi.obtenerPokemon(nombreOId);
+        PokemonResponse respuesta = clientePokeApi.obtenerPokemon(nombreOId);
         if (respuesta == null) {
             return null;
         }
 
-        return mapearRespuesta(respuesta);
+        return mapearPokemon(respuesta);
     }
 
-    private Pokemon mapearRespuesta(PokeResponse pokeResponse) {
+    public List<PokemonLista> obtener20Pokemons() {
+        ListaPokeResponse respuesta = clientePokeApi.obtenerLista20Pokemons();
+        if (respuesta == null || respuesta.getResults() == null) {
+            return null;
+        }
+
+        return mapearPokemonLista(respuesta);
+    }
+
+    private Pokemon mapearPokemon(PokemonResponse pokeResponse) {
         Pokemon pokemon = new Pokemon();
 
         pokemon.setId(pokeResponse.getId());
@@ -49,5 +62,14 @@ public class PokemonService {
         }
 
         return pokemon;
+    }
+
+    private List<PokemonLista> mapearPokemonLista(ListaPokeResponse pokeResponse) {
+        List<PokemonLista> listaPokemons = new ArrayList<>();
+
+        if (pokeResponse.getResults() != null) {
+            listaPokemons.addAll(pokeResponse.getResults());
+        }
+        return listaPokemons;
     }
 }

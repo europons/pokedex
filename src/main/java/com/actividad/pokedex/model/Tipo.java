@@ -6,5 +6,4 @@ import lombok.Data;
 public class Tipo {
 
     private String name;
-    private String url;
 }

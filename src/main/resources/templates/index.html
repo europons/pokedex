@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex</title>
+    <title>PokéDex</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
@@ -11,15 +11,15 @@
 </head>
 <body>
     <main class="portada">
-        <section class="hero">
+        <section class="tarjeta">
             <picture class="logo">
                 <source th:srcset="@{/titulo.webp}" type="image/webp">
                 <img th:src="@{/titulo.png}" alt="Pokedex" loading="eager">
             </picture>
-            <p class="tagline">Consulta rapida de Pokemon desde PokeAPI.</p>
+            <p class="texto">Consulta de Pokemon desde PokeAPI.</p>
             <div class="acciones">
-                <a class="boton principal" th:href="@{/buscar}">Buscar Pokemon</a>
-                <a class="boton secundario" th:href="@{/listado}">Ver listado (1-20)</a>
+                <a class="boton" th:href="@{/buscar}">Buscar Pokemon</a>
+                <a class="boton" th:href="@{/listado}">Ver listado (1-20)</a>
             </div>
         </section>
     </main>

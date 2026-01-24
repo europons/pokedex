@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles Pokemon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/detallesPokemon.css}">
+</head>
+<body>
+    <main class="contenedor">
+        <div class="cabecera">
+            <h1 class="titulo">Detalles Pokemon</h1>
+            <div class="acciones-cabecera">
+                <a class="volver" th:href="@{/buscar}">Volver</a>
+                <a class="volver" th:href="@{/}">Inicio</a>
+            </div>
+        </div>
+
+        <section class="tarjeta" th:if="${pokemon != null}">
+            <div class="imagen">
+                <img th:if="${pokemon.imagen != null}" th:src="${pokemon.imagen}" alt="Pokemon">
+            </div>
+            <div class="datos">
+                <div class="bloque">
+                    <h3>Nombre</h3>
+                    <p th:text="${pokemon.nombre}">nombre</p>
+                </div>
+                <div class="bloque">
+                    <h3>Id</h3>
+                    <p th:text="${pokemon.id}">0</p>
+                </div>
+                <div class="bloque">
+                    <h3>Altura</h3>
+                    <p th:text="${pokemon.altura}">0</p>
+                </div>
+                <div class="bloque">
+                    <h3>Peso</h3>
+                    <p th:text="${pokemon.peso}">0</p>
+                </div>
+                <div class="bloque">
+                    <h3>Tipos</h3>
+                    <div class="tipos">
+                        <span class="tipo" th:each="tipo : ${pokemon.tipos}" th:text="${tipo}">tipo</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <p class="aviso" th:if="${pokemon == null}">
+            No hay datos para mostrar. Vuelve al formulario y realiza una busqueda.
+        </p>
+    </main>
+</body>
+</html>

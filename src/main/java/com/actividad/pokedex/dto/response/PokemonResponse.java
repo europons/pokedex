@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class PokeResponse {
+public class PokemonResponse {
 
     private int id;
     private String name;

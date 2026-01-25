@@ -4,7 +4,6 @@ Proyecto academico de 2º de DAW (modulo Desarrollo de aplicaciones web en entor
 
 ![Vista previa](docs/preview.png)
 
-> Nota: guarda la imagen adjunta como `docs/preview.png` para que se muestre aqui.
 
 ## Descripcion
 Aplicacion web MVC que permite buscar Pokemon por nombre o id, listar los 20 primeros y consultar detalles (imagen, tipos, altura y peso). Los datos se obtienen en tiempo real desde PokeAPI.

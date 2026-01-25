@@ -14,9 +14,9 @@
         <div class="cabecera">
             <div>
                 <h1 class="titulo">Listado de Pokemon</h1>
-                <p class="subtitulo">Resultados del catalogo de PokeAPI.</p>
+                <p class="subtitulo">Los 20 primeros Pókemon del catalogo de PokeAPI.</p>
             </div>
-            <a class="volver" th:href="@{/}">Inicio</a>
+            <a class="inicio" th:href="@{/}">Inicio</a>
         </div>
 
         <section class="listado" th:if="${listaPokemons != null and !#lists.isEmpty(listaPokemons)}">

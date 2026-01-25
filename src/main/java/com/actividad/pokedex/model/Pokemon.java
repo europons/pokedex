@@ -12,8 +12,8 @@ public class Pokemon {
 
     private String nombre;
     private int id;
-    private int altura;
-    private int peso;
+    private Double altura;
+    private Double peso;
     private ArrayList<String> tipos;
     private String imagen;
 }

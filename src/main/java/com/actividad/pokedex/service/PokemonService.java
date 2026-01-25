@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class PokemonService {
 
+    private static final Double DECIMETROS_A_METROS = 0.1;
+    private static final Double HECTOGRAMOS_A_KILOGRAMOS = 0.1;
+
     private final PokeApiClient clientePokeApi;
 
     public PokemonService(PokeApiClient clientePokeApi) {
@@ -42,8 +45,8 @@ public class PokemonService {
 
         pokemon.setId(pokeResponse.getId());
         pokemon.setNombre(pokeResponse.getName());
-        pokemon.setAltura(pokeResponse.getHeight());
-        pokemon.setPeso(pokeResponse.getWeight());
+        pokemon.setAltura(redondear(pokeResponse.getHeight() * DECIMETROS_A_METROS));
+        pokemon.setPeso(redondear(pokeResponse.getWeight() * HECTOGRAMOS_A_KILOGRAMOS));
         // Mapear tipos
         ArrayList<String> tipos = new ArrayList<>();
         if (pokeResponse.getTypes() != null) {
@@ -71,5 +74,9 @@ public class PokemonService {
             listaPokemons.addAll(pokeResponse.getResults());
         }
         return listaPokemons;
+    }
+
+    private static Double redondear (Double valor) {
+        return Math.round(valor * 100.0) / 100.0;
     }
 }

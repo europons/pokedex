@@ -10,16 +10,35 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+/**
+ * Controlador que atiende las páginas de la pokedex.
+ * <p>
+ * Recibe las acciones del usuario y prepara las vistas.
+ * </p>
+ */
 @Controller
 public class PokemonController {
 
+    /**
+     * Servicio que ofrece la información Pokemon.
+     */
     private final PokemonService servicioPokemon;
 
+    /**
+     * Constructor con inyección de dependencias.
+     *
+     * @param servicioPokemon servicio principal de la aplicación Pokedex
+     */
     public PokemonController(PokemonService servicioPokemon) {
         this.servicioPokemon = servicioPokemon;
     }
     
-
+    /**
+     * Muestra el formulario de búsqueda.
+     *
+     * @param model datos para la vista
+     * @return la vista del formulario
+     */
     @GetMapping("/buscar")
     public String mostrarFormulario(Model model) {
         if (!model.containsAttribute("busqueda")) {
@@ -28,6 +47,18 @@ public class PokemonController {
         return "formulario";
     }
 
+    /**
+     * Procesa la búsqueda enviada por el usuario.
+     * <p>
+     * Si hay errores, vuelve a mostrar el formulario.
+     * </p>
+     *
+     * @param formularioRequest datos escritos por el usuario
+     * @param errores resultado de las comprobaciones
+     * @param model datos para la vista
+     * @param redirectAttributes datos temporales para el siguiente salto de página
+     * @return vista de destino. Si algo falla muestra formulario si no redirecciona a los detalles del Pokemon buscado
+     */
     @PostMapping("/buscar")
     public String buscarPokemon(@Valid @ModelAttribute("busqueda") FormularioRequest formularioRequest,
                                 BindingResult errores,
@@ -49,6 +80,17 @@ public class PokemonController {
         return "redirect:/detalles/" + nombreOId;
     }
 
+    /**
+     * Muestra la ficha de un Pokemon concreto.
+     * <p>
+     * Si no existe, vuelve al formulario con un aviso.
+     * </p>
+     *
+     * @param nombreOId nombre o numero del Pokemon
+     * @param model datos para la vista
+     * @param redirectAttributes datos temporales para el aviso
+     * @return vista de detalles o vuelta al formulario
+     */
     @GetMapping("/detalles/{nombreOId}")
     public String mostrarDetallesPokemon(@PathVariable("nombreOId") String nombreOId,
                                          Model model,
@@ -64,6 +106,12 @@ public class PokemonController {
         return "detallesPokemon";
     }
 
+    /**
+     * Muestra un listado de Pokemon.
+     *
+     * @param model datos para la vista
+     * @return nombre de la vista con el listado
+     */
     @GetMapping("/listado")
     public String mostrarListadoPokemons(Model model) {
         var listaPokemons = servicioPokemon.obtener20Pokemons();
@@ -71,6 +119,11 @@ public class PokemonController {
         return "listadoPokemons";
     }
 
+    /**
+     * Muestra la página de inicio.
+     *
+     * @return vista inicial
+     */
     @GetMapping("/")
     public String inicio() {
         return "index";

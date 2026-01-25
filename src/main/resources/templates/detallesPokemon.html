@@ -12,10 +12,10 @@
 <body>
     <main class="contenedor">
         <div class="cabecera">
-            <h1 class="titulo">Detalles Pokemon</h1>
+            <h1 class="titulo">Detalles de <span class="nombre" th:text="${pokemon.nombre}">Pokemon</span></h1>
             <div class="acciones-cabecera">
-                <a class="volver" th:href="@{/buscar}">Volver</a>
-                <a class="volver" th:href="@{/}">Inicio</a>
+                <a class="inicio" th:href="@{/buscar}">Volver</a>
+                <a class="inicio" th:href="@{/}">Inicio</a>
             </div>
         </div>
 
@@ -26,7 +26,7 @@
             <div class="datos">
                 <div class="bloque">
                     <h3>Nombre</h3>
-                    <p th:text="${pokemon.nombre}">nombre</p>
+                    <p class="nombre" th:text="${pokemon.nombre}">nombre</p>
                 </div>
                 <div class="bloque">
                     <h3>Id</h3>
@@ -34,11 +34,11 @@
                 </div>
                 <div class="bloque">
                     <h3>Altura</h3>
-                    <p th:text="${pokemon.altura}">0</p>
+                    <p th:text="${pokemon.altura} + ' m'">0 m</p>
                 </div>
                 <div class="bloque">
                     <h3>Peso</h3>
-                    <p th:text="${pokemon.peso}">0</p>
+                    <p th:text="${pokemon.peso} + ' kg'">0 kg</p>
                 </div>
                 <div class="bloque">
                     <h3>Tipos</h3>

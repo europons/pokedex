@@ -45,30 +45,33 @@ body {
 
 .titulo {
     font-family: "Fraunces", serif;
-    font-size: 28px;
+    font-size: 32px;
     margin: 0;
 }
 
-.volver {
+.inicio {
     color: var(--muted);
     text-decoration: none;
     border: 1px solid #334155;
     padding: 8px 14px;
     border-radius: 999px;
-    font-size: 12px;
+    font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 1.4px;
+}
+.inicio:hover {
+    background: #1e293b;
 }
 
 .acciones-cabecera {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     flex-wrap: wrap;
 }
 
 .tarjeta {
-    margin-top: 24px;
+    margin-top: 30px;
     display: grid;
     grid-template-columns: minmax(180px, 260px) 1fr;
     gap: 24px;
@@ -77,6 +80,7 @@ body {
 
 .imagen {
     width: 100%;
+    height: 100%;
     border-radius: 18px;
     background: #0f172a;
     padding: 16px;
@@ -108,7 +112,7 @@ body {
 
 .bloque h3 {
     margin: 0 0 6px 0;
-    font-size: 12px;
+    font-size: 16px;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--muted);
@@ -116,7 +120,7 @@ body {
 
 .bloque p {
     margin: 0;
-    font-size: 16px;
+    font-size: 24px;
 }
 
 .tipos {
@@ -129,7 +133,7 @@ body {
     padding: 6px 10px;
     border-radius: 999px;
     border: 1px solid #334155;
-    font-size: 13px;
+    font-size: 20px;
 }
 
 .aviso {
@@ -141,4 +145,8 @@ body {
     .tarjeta {
         grid-template-columns: 1fr;
     }
+}
+
+.nombre {
+    text-transform: capitalize;
 }

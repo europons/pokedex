@@ -48,16 +48,19 @@ public class PokemonController {
     }
 
     /**
-     * Procesa la búsqueda enviada por el usuario.
+     * Procesa la búsqueda de un Pokémon a partir del nombre o identificador introducido por el usuario.
      * <p>
-     * Si hay errores, vuelve a mostrar el formulario.
+     * El método valida los datos del formulario y consulta PokeAPI para obtener la información del Pokémon.
+     * En caso de que el Pokémon no exista o se produzca un problema de conexión con la API,
+     * se muestra un mensaje de error en el propio formulario sin redirigir al usuario.
      * </p>
      *
-     * @param formularioRequest datos escritos por el usuario
-     * @param errores resultado de las comprobaciones
-     * @param model datos para la vista
-     * @param redirectAttributes datos temporales para el siguiente salto de página
-     * @return vista de destino. Si algo falla muestra formulario si no redirecciona a los detalles del Pokemon buscado
+     * @param formularioRequest datos introducidos por el usuario en el formulario
+     * @param errores resultado de la validación y de posibles errores durante la búsqueda
+     * @param model datos enviados a la vista
+     * @param redirectAttributes datos temporales utilizados para redirigir a la vista de detalles
+     * @return si la búsqueda es correcta, redirige a la vista de detalles del Pokémon;
+     *         en caso contrario, vuelve a mostrar el formulario con el mensaje de error correspondiente
      */
     @PostMapping("/buscar")
     public String buscarPokemon(@Valid @ModelAttribute("busqueda") FormularioRequest formularioRequest,
@@ -142,10 +145,14 @@ public class PokemonController {
     }
 
     /**
-     * Muestra un listado de Pokemon.
+     * Muestra un listado de Pokémon obtenido desde PokeAPI.
+     * <p>
+     * Si la consulta a la API falla (problemas de conexión, timeout o errores del servidor),
+     * el método captura la excepción y muestra un mensaje de error en la vista sin interrumpir
+     * la navegación del usuario.
      *
-     * @param model datos para la vista
-     * @return nombre de la vista con el listado
+     * @param model datos que se envían a la vista
+     * @return nombre de la vista con el listado de Pokémon o un mensaje de error
      */
     @GetMapping("/listado")
     public String mostrarListadoPokemons(Model model) {

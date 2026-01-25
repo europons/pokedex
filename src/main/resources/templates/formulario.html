@@ -24,11 +24,8 @@
         <form th:action="@{/buscar}" method="post" th:object="${busqueda}">
             <input type="text" th:field="*{nombreOId}" placeholder="Ejemplo: pikachu o 25">
             <button type="submit">Buscar</button>
-            <div class="mensaje error" th:if="${#fields.hasErrors('nombreOId')}" th:errors="*{nombreOId}">
-            </div>
+            <div class="mensaje error" th:if="${#fields.hasErrors('nombreOId')}" th:errors="*{nombreOId}"></div>
         </form>
-
-        <div class="mensaje error" th:if="${error}" th:text="${error}"></div>
 
         <div class="pista">
             <span>Nombre: charizard</span>

@@ -19,6 +19,8 @@
             <a class="inicio" th:href="@{/}">Inicio</a>
         </div>
 
+       <div th:if="${error}" class="mensaje error" th:text="${error}"></div>
+
         <section class="listado" th:if="${listaPokemons != null and !#lists.isEmpty(listaPokemons)}">
             <ol class="lista">
                 <li class="fila" th:each="pokemon, iter : ${listaPokemons}">

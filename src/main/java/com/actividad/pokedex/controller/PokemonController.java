@@ -70,14 +70,49 @@ public class PokemonController {
 
         String nombreOId = formularioRequest.getNombreOId();
 
-        Pokemon pokemon = servicioPokemon.obtenerPokemon(nombreOId);
-        if (pokemon == null) {
-            errores.rejectValue("nombreOId", "error", "Pokémon no encontrado. Por favor, verifica el nombre o ID introducido.");
+        try {
+            Pokemon pokemon = servicioPokemon.obtenerPokemon(nombreOId);
+
+            if (pokemon == null) {
+                // SOLO llega aquí si la API devolvió 404 (no existe)
+                errores.rejectValue(
+                    "nombreOId",
+                    "error",
+                    "Pokémon no encontrado. Por favor, verifica el nombre o ID introducido."
+                );
+                return "formulario";
+            }
+
+            redirectAttributes.addFlashAttribute("pokemon", pokemon);
+            return "redirect:/detalles/" + nombreOId;
+
+        } catch (org.springframework.web.client.ResourceAccessException e) {
+            // Timeout / sin conexión / DNS
+            errores.rejectValue(
+                "nombreOId",
+                "error",
+                "No se puede conectar con PokeAPI ahora mismo. Inténtalo de nuevo en unos segundos."
+            );
+            return "formulario";
+
+        } catch (org.springframework.web.client.HttpServerErrorException e) {
+            // Errores 5xx de la API
+            errores.rejectValue(
+                "nombreOId",
+                "error",
+                "PokeAPI está teniendo problemas ahora mismo. Inténtalo más tarde."
+            );
+            return "formulario";
+
+        } catch (org.springframework.web.client.RestClientException e) {
+            // Cualquier otro error de cliente HTTP
+            errores.rejectValue(
+                "nombreOId",
+                "error",
+                "Error al consultar PokeAPI. Inténtalo más tarde."
+            );
             return "formulario";
         }
-
-        redirectAttributes.addFlashAttribute("pokemon", pokemon);
-        return "redirect:/detalles/" + nombreOId;
     }
 
     /**
@@ -114,9 +149,36 @@ public class PokemonController {
      */
     @GetMapping("/listado")
     public String mostrarListadoPokemons(Model model) {
-        var listaPokemons = servicioPokemon.obtener20Pokemons();
-        model.addAttribute("listaPokemons", listaPokemons);
-        return "listadoPokemons";
+
+        try {
+            var listaPokemons = servicioPokemon.obtener20Pokemons();
+            model.addAttribute("listaPokemons", listaPokemons);
+            return "listadoPokemons";
+
+        } catch (org.springframework.web.client.ResourceAccessException e) {
+            // Timeout / sin conexión / DNS
+            model.addAttribute(
+                "error",
+                "No se puede conectar con PokeAPI ahora mismo. Inténtalo más tarde."
+            );
+            return "listadoPokemons";
+
+        } catch (org.springframework.web.client.HttpServerErrorException e) {
+            // Errores 5xx de la API
+            model.addAttribute(
+                "error",
+                "PokeAPI está teniendo problemas ahora mismo. Inténtalo más tarde."
+            );
+            return "listadoPokemons";
+
+        } catch (org.springframework.web.client.RestClientException e) {
+            // Cualquier otro error de cliente HTTP
+            model.addAttribute(
+                "error",
+                "Error al cargar el listado de Pokémon. Inténtalo más tarde."
+            );
+            return "listadoPokemons";
+        }
     }
 
     /**

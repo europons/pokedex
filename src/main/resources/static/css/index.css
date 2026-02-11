@@ -11,27 +11,29 @@
     box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: "Space Grotesk", sans-serif;
-    color: var(--text);
-    background:
-        radial-gradient(900px 600px at 15% 15%, #1f2937 0%, transparent 60%),
-        radial-gradient(900px 600px at 85% 20%, #0b1324 0%, transparent 60%),
-        linear-gradient(135deg, var(--bg-1), var(--bg-2));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 16px;
+body{
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 20%, rgba(245,158,11,0.38), transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(34,197,94,0.34), transparent 50%),
+    linear-gradient(135deg, #0b1220, #0a0f1a);
+  padding: 32px 16px;
 }
 
 .portada {
     width: min(1280px, 100%);
+    margin: 0 auto;
     text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .tarjeta {
+    margin-top: 150px;
+    width: min(980px, 100%);
     background: rgba(15, 23, 42, 0.6);
     border: 1px solid #1f2937;
     border-radius: 26px;
@@ -108,4 +110,86 @@ body {
     .boton {
         width: 100%;
     }
+}
+
+.bienvenida{
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 50;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  padding: 10px 12px;
+  border-radius: 16px;
+
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(10px);
+
+  text-align: left;
+}
+
+.bienvenida p{
+  margin: 0;
+  font-size: 24px;
+  color: rgba(229,231,235,0.95);
+  line-height: 1.1;
+}
+
+.bienvenida strong{
+  display: block;           /* nombre en otra línea */
+  font-size: 24px;
+}
+
+.bienvenida picture{
+  display: block;
+}
+
+.bienvenida img{
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  object-fit: cover;
+}
+
+.logout-form{
+  margin: 0;               /* quita el margin-top */
+}
+
+.logout-btn{
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 12px;
+
+  color: rgba(255,255,255,0.92);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, transform .12s ease, box-shadow .15s ease;
+}
+
+.logout-btn:hover{
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.22);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 720px){
+  .bienvenida{
+    top: 12px;
+    right: 12px;
+    left: 12px;
+    justify-content: space-between;
+  }
+
+  .bienvenida img{
+    width: 38px;
+    height: 38px;
+  }
 }

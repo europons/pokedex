@@ -11,10 +11,20 @@
 </head>
 <body>
     <main class="portada">
+        <section class="bienvenida">
+            <picture>
+                <img th:src="${picture}" alt="Imagen Google del usuario" loading="eager">
+            </picture>
+            <p>Bienvenido <strong th:text="${given_name}"></strong></p>
+            <form th:action="@{/logout}" method="post" class="logout-form">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <button type="submit" class="logout-btn">Cerrar sesión</button>
+            </form>
+        </section>
         <section class="tarjeta">
             <picture class="logo">
                 <source th:srcset="@{/titulo.webp}" type="image/webp">
-                <img th:src="@{/titulo.png}" alt="Pokedex" loading="eager">
+                <img th:src="@{/titulo.webp}" alt="Pokedex" loading="eager">
             </picture>
             <p class="texto">Consulta de Pokemon desde PokeAPI.</p>
             <div class="acciones">

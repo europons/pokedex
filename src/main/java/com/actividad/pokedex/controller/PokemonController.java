@@ -4,11 +4,16 @@ import com.actividad.pokedex.dto.request.FormularioRequest;
 import com.actividad.pokedex.model.Pokemon;
 import com.actividad.pokedex.service.PokemonService;
 import jakarta.validation.Valid;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * Controlador que atiende las páginas de la pokedex.
@@ -189,12 +194,42 @@ public class PokemonController {
     }
 
     /**
-     * Muestra la página de inicio.
+     * Muestra la página de login.
      *
-     * @return vista inicial
+     * @return vista del login
+     */
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+
+    /**
+     * Muestra la página de inicio con la información del usuario autenticado.
+     *
+     * @param user información del usuario autenticado
+     * @param model datos para la vista
+     * @return vista de inicio con los datos del usuario o sin ellos si no está autenticado
      */
     @GetMapping("/")
-    public String inicio() {
+    public String inicio(@AuthenticationPrincipal OAuth2User user, Model model) {
+        if (user != null) {
+            System.out.println(user);
+            model.addAttribute("given_name", user.getAttribute("given_name"));
+            model.addAttribute("email", user.getAttribute("email"));
+            model.addAttribute("picture", user.getAttribute("picture"));
+        }
         return "index";
+    }
+
+    /**
+     * Muestra el perfil del usuario autenticado.
+     *
+     * @param user información del usuario autenticado
+     * @return atributos del usuario en formato JSON
+     */
+    @GetMapping("/profile")
+    public Map<String, Object> profile(@AuthenticationPrincipal OAuth2User user) {
+        return user.getAttributes();
     }
 }

@@ -1,6 +1,6 @@
 # Pokedex
 
-Proyecto academico de 2º de DAW (modulo Desarrollo de aplicaciones web en entorno cliente). Aplicacion web con Spring Boot y Thymeleaf para practicar el consumo de una API externa gratuita (PokeAPI).
+Proyecto academico de 2º de DAW (modulo Desarrollo de aplicaciones web en entorno cliente). Aplicacion web con Spring Boot y Thymeleaf para practicar el consumo de una API externa gratuita (PokeAPI) y el inicio de sesión con Google.
 
 ![Vista previa](docs/preview.png)
 
@@ -14,9 +14,14 @@ Aplicacion web MVC que permite buscar Pokemon por nombre o id, listar los 20 pri
 - Listado de los 20 primeros Pokemon con enlace a detalles.
 - Validacion de formulario y mensajes de error.
 - Interfaz web con Thymeleaf y estilos propios.
+- Inicio de sesion con Google (OAuth2) para acceder a la aplicacion.
+
+## Despliegue
+La aplicacion esta desplegada en Koyeb y se puede probar aqui:
+https://respectable-brandy-javigpons-04afa93f.koyeb.app/
 
 ## Tecnologias
-- Java 25
+- Java 21
 - Spring Boot 4.0.2
 - Spring WebMVC
 - Thymeleaf
@@ -26,7 +31,7 @@ Aplicacion web MVC que permite buscar Pokemon por nombre o id, listar los 20 pri
 - PokeAPI
 
 ## Requisitos
-- Java 25 instalado y `JAVA_HOME` configurado.
+- Java 21 instalado y `JAVA_HOME` configurado.
 - Acceso a internet para consumir PokeAPI.
 - Maven o el wrapper incluido (`mvnw`).
 
@@ -49,15 +54,20 @@ macOS/Linux:
 > Si tienes Maven instalado, tambien puedes usar `mvn spring-boot:run`.
 
 ## Rutas principales
-| Metodo | Ruta | Descripcion |
-| --- | --- | --- |
-| GET | / | Portada |
-| GET | /buscar | Formulario de busqueda |
-| POST | /buscar | Procesa la busqueda y redirige a detalles |
-| GET | /detalles/{nombreOId} | Detalles de un Pokemon |
-| GET | /listado | Listado de los 20 primeros Pokemon |
+| Metodo | Ruta | Descripcion                                            |
+| --- | --- |--------------------------------------------------------|
+| GET | / | Página de inicio (si no hay sesion, redirige a /login) |
+| GET | /login | Inicio de sesion con Google (OAuth2)                   |
+| GET | /login/oauth2/code/google| Callback de Google (OAuth2)                            |
+| GET | /logout | Cierra sesion y redirige a /login                      |
+| GET | /buscar | Formulario de busqueda                                 |
+| POST | /buscar | Procesa la busqueda y redirige a detalles              |
+| GET | /detalles/{nombreOId} | Detalles de un Pokemon                                 |
+| GET | /listado | Listado de los 20 primeros Pokemon                     |
+| GET | /profile | Devuelve los datos del usuario autenticado             |
 
 ## Estructura del proyecto
+- `src/main/java/com/actividad/pokedex/config`: configuracion de seguridad y OAuth2.
 - `src/main/java/com/actividad/pokedex/controller`: controladores web.
 - `src/main/java/com/actividad/pokedex/service`: logica de negocio y mapeo.
 - `src/main/java/com/actividad/pokedex/client`: cliente REST para PokeAPI.
